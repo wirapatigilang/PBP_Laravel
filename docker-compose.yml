@@ -1,0 +1,32 @@
+
+services:
+  # Layanan untuk Apache dan PHP
+  apache-php:
+    image: php:8.2-apache
+    build: .
+    container_name: my-apache-php-container-laravel
+    ports:
+      - "8080:80"
+    volumes:
+      - ./minicommerce:/var/www/html  # <-- UBAH DI SINI
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  # Layanan untuk Database MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: my-mysql-container-laravel
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: projectPBP
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+volumes:
+  db_data:
