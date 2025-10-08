@@ -17,12 +17,12 @@ class CategoryController extends Controller
     {
         $request->validate(['name' => 'required']);
         Category::create(['name' => $request->name]);
-        return redirect()->route('admin.category')->with('success', 'Category added.');
+        return redirect()->route('admin.category')->with('success', 'Category added.')
+        ;
     }
 
     public function edit(Category $category)
     {
-        // Tidak perlu findOrFail karena sudah pakai route model binding
         return view('admin.editCategory', compact('category'));
     }
 
@@ -35,7 +35,7 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('admin.category')->with('success', 'Category updated successfully!');
+    return redirect()->route('admin.category')->with('success', 'category edited');
     }
 
     public function delete(Category $category)
