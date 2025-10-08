@@ -24,6 +24,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Action</th>
                 </tr>
@@ -31,6 +32,7 @@
             <tbody>
                 @foreach ($categories as $index => $category)
                     <tr>
+                        <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
                             <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>

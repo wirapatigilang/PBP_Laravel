@@ -25,9 +25,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin_dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('/admin_category', [CategoryController::class, 'index'])->name('admin.category');
-    Route::get('admin_category/create', [CategoryController::class, 'create'])->name('admin.category.create');
-    Route::get('admin_category/{category}/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    Route::get('/admin_category/create', [CategoryController::class, 'create'])->name('admin.category.create');
+    Route::get('/admin_category/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
     Route::post('/admin_category/create', [CategoryController::class, 'create'])->name('admin.category.create.post');
+    Route::post('/admin_category/{category}/edit', [CategoryController::class, 'update'])->name('admin.category.edit.post');
     Route::delete('admin_cateogry/{category}/delete', [CategoryController::class, 'delete'])->name('admin.category.delete');
 
 });
