@@ -124,7 +124,7 @@
         @yield('dashboard')
         @yield('category')
         @yield('editcategory')
-
+        @yield('content')
       
 
         </section>
