@@ -7,7 +7,7 @@
 <div class="mb-4 container">
     <h2>Category List</h2>
 
-    <form action="{{ route('admin.category.create.post') }}" method="POST">
+    <form action="{{ route('admin.categories.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="InputCategory">Category</label>
@@ -35,8 +35,8 @@
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
-                            <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('admin.category.delete', $category->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this category?')">Delete</button>

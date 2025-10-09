@@ -9,8 +9,4 @@ class AdminController extends Controller
     public function dashboard () {
         return view('admin.dashboard');
     }
-
-    public function category () {
-        return view('admin.category');
-    }
 }

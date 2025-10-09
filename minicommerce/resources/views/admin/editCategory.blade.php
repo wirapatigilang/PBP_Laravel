@@ -7,8 +7,9 @@
 <div class="mb-4 container">
     <h2>Edit Category</h2>
 
-    <form action="{{ route('admin.category.edit.post', ['category' => $category->id]) }}" method="POST">
+    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="form-group">
             <input type="text" class="form-control" name="name" value="{{ $category->name }}" required>
         </div>

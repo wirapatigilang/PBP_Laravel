@@ -8,19 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="{{ asset('admin/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Custom Font Icons CSS-->
-    <link rel="stylesheet" href="{{ asset('admin/css/font.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/css/font.css') }}">
     <!-- Google fonts - Muli-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{{ asset('admin/css/style.default.css') }}" id="theme-stylesheet">
+    <link rel="stylesheet" href="{{ asset('admin-assets/css/style.default.css') }}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/css/custom.css') }}">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="admin/img/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('admin-assets/img/favicon.ico') }}">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -53,19 +53,19 @@
             <div class="list-inline-item"><a href="#" class="search-open nav-link"><i class="icon-magnifying-glass-browser"></i></a></div>
             <div class="list-inline-item dropdown"><a id="navbarDropdownMenuLink1" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link messages-toggle"><i class="icon-email"></i><span class="badge dashbg-1">5</span></a>
               <div aria-labelledby="navbarDropdownMenuLink1" class="dropdown-menu messages"><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-3.jpg" alt="..." class="img-fluid">
+                  <div class="profile"><img src="{{ asset('admin-assets/img/avatar-3.jpg') }}" alt="..." class="img-fluid">
                     <div class="status online"></div>
                   </div>
                   <div class="content">   <strong class="d-block">Nadia Halsey</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">9:30am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-2.jpg" alt="..." class="img-fluid">
+                  <div class="profile"><img src="{{ asset('admin-assets/img/avatar-2.jpg') }}" alt="..." class="img-fluid">
                     <div class="status away"></div>
                   </div>
                   <div class="content">   <strong class="d-block">Peter Ramsy</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">7:40am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-1.jpg" alt="..." class="img-fluid">
+                  <div class="profile"><img src="{{ asset('admin-assets/img/avatar-1.jpg') }}" alt="..." class="img-fluid">
                     <div class="status busy"></div>
                   </div>
                   <div class="content">   <strong class="d-block">Sam Kaheil</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">6:55am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-5.jpg" alt="..." class="img-fluid">
+                  <div class="profile"><img src="{{ asset('admin-assets/img/avatar-5.jpg') }}" alt="..." class="img-fluid">
                     <div class="status offline"></div>
                   </div>
                   <div class="content">   <strong class="d-block">Sara Wood</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">10:30pm</small></div></a><a href="#" class="dropdown-item text-center message"> <strong>See All Messages <i class="fa fa-angle-right"></i></strong></a></div>
@@ -93,7 +93,7 @@
       <nav id="sidebar">
         <!-- Sidebar Header-->
         <div class="sidebar-header d-flex align-items-center">
-          <div class="avatar"><img src="img/avatar-6.jpg" alt="..." class="img-fluid rounded-circle"></div>
+          <div class="avatar"><img src="{{ asset('admin-assets/img/avatar-6.jpg') }}" alt="..." class="img-fluid rounded-circle"></div>
           <div class="title">
             <h1 class="h5">Admin</h1>
             <p>Admin CoffePaste</p>
@@ -102,7 +102,7 @@
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
         <ul class="list-unstyled">
                 <li class="active"><a href="{{ route('admin.dashboard') }}"> <i class="icon-home"></i>Home </a></li>
-                <li><a href="{{ route('admin.category')}}"> <i class="icon-windows"></i>Category</a></li>
+                <li><a href="{{ route('admin.categories.index')}}"> <i class="icon-windows"></i>Category</a></li>
                 <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
                   <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                     <li><a href="#">Page</a></li>
@@ -140,13 +140,13 @@
       </div>
     </div>
     <!-- JavaScript files-->
-    <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/popper.js/umd/popper.min.js') }}"> </script>
-    <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
-    <script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('admin/js/charts-home.js') }}"></script>
-    <script src="{{ asset('admin/js/front.js') }}"></script>
+    <script src="{{ asset('admin-assets/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/vendor/popper.js/umd/popper.min.js') }}"> </script>
+    <script src="{{ asset('admin-assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+    <script src="{{ asset('admin-assets/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/js/charts-home.js') }}"></script>
+    <script src="{{ asset('admin-assets/js/front.js') }}"></script>
   </body>
 </html>
