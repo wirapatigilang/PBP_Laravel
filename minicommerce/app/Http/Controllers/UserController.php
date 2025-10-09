@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     function index() {
         if(Auth::check() && Auth::user()->role=='user') {
-            return view('dashboard');
+            return view('products.index');
         } else if(Auth::check() && Auth::user()->role=='admin') {
             return view('admin.dashboard');
         }

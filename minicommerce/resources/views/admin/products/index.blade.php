@@ -5,7 +5,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Products</h1>
         <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Add New Product
+            <i class="fa fa-plus"></i> Add New Product
         </a>
     </div>
 
@@ -50,7 +50,7 @@
                                 <td>
                                     <a href="{{ route('admin.products.edit', $product) }}" 
                                        class="btn btn-warning btn-sm">
-                                        <i class="fas fa-edit"></i> Edit
+                                        <i class="fa fa-edit"></i> Edit
                                     </a>
                                     <form action="{{ route('admin.products.destroy', $product) }}" 
                                           method="POST" 
@@ -60,7 +60,7 @@
                                         <button type="submit" 
                                                 class="btn btn-danger btn-sm" 
                                                 onclick="return confirm('Are you sure you want to delete this product?')">
-                                            <i class="fas fa-trash"></i> Delete
+                                            <i class="fa fa-trash"></i> Delete
                                         </button>
                                     </form>
                                 </td>

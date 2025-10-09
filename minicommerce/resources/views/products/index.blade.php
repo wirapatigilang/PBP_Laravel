@@ -1,22 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+<div>
+
+    
+</div>
+
+
 <div class="max-w-7xl mx-auto py-8 px-4">
     <h1 class="text-3xl font-bold mb-6">Products</h1>
-
-    <form method="GET" action="{{ route('products.index') }}" class="mb-6 flex gap-3">
-        <input type="text" name="q" value="{{ request('q') }}" placeholder="Search by name..." class="border rounded px-3 py-2 w-1/2">
-        <select name="category" class="border rounded px-3 py-2">
-            <option value="">All categories</option>
-            @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-            @endforeach
-        </select>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded">Search</button>
-        @if(request()->hasAny(['q','category']) && (request('q') || request('category')))
-            <a href="{{ route('products.index') }}" class="ml-2 px-3 py-2 border rounded">Clear</a>
-        @endif
-    </form>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @forelse($products as $product)

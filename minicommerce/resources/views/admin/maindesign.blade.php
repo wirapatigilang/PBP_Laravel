@@ -44,8 +44,8 @@
         <div class="container-fluid d-flex align-items-center justify-content-between">
           <div class="navbar-header">
             <!-- Navbar Header--><a href="index.html" class="navbar-brand">
-              <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">Dark</strong><strong>Admin</strong></div>
-              <div class="brand-text brand-sm"><strong class="text-primary">D</strong><strong>A</strong></div></a>
+              <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">Senja</strong><strong> & Co.</strong></div>
+              <div class="brand-text brand-sm"><strong class="text-primary">S</strong><strong>C</strong></div></a>
             <!-- Sidebar Toggle Btn-->
             <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
           </div>
@@ -103,6 +103,7 @@
         <ul class="list-unstyled">
                 <li class="active"><a href="{{ route('admin.dashboard') }}"> <i class="icon-home"></i>Home </a></li>
                 <li><a href="{{ route('admin.categories.index')}}"> <i class="icon-windows"></i>Category</a></li>
+                <li><a href="{{ route('admin.products.index')}}"> <i class="icon-windows"></i>Products</a></li>
                 <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
                   <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                     <li><a href="#">Page</a></li>
@@ -110,7 +111,7 @@
                     <li><a href="#">Page</a></li>
                   </ul>
                 </li>
-                <li><a href="login.html"> <i class="icon-logout"></i>Main page </a></li>
+                <li><a href="{{ route("products.index") }}"> <i class="icon-logout"></i>Main page </a></li>
       </nav>
       <!-- Sidebar Navigation end-->
       <div class="page-content">
