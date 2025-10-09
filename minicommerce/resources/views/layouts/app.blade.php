@@ -29,7 +29,12 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                {{-- Support both component slot usage and classic @section/@yield views --}}
+                @isset($slot)
+                    {{ $slot }}
+                @else
+                    @yield('content')
+                @endisset
             </main>
         </div>
     </body>

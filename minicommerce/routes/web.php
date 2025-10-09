@@ -12,6 +12,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Public product listing and detail
+use App\Http\Controllers\ProductController as PublicProductController;
+Route::get('/products', [PublicProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [PublicProductController::class, 'show'])->name('products.show');
+
 
 
 Route::get('/dashboard', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
