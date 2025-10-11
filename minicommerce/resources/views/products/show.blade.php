@@ -108,19 +108,40 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                            Add to Cart
-                        </button>
-                        <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                        </button>
-                    </div>
+                    @auth
+                        @if($product->stock > 0)
+                            <form action="{{ route('cart.add', $product) }}" method="POST" class="flex flex-col sm:flex-row gap-3">
+                                @csrf
+
+                                <!-- Qty picker -->
+                                <div class="flex items-center gap-2">
+                                    <label for="qty" class="text-sm text-gray-600">Qty</label>
+                                    <input id="qty" type="number" name="quantity" min="1" max="{{ $product->stock }}" value="1"
+                                        class="w-24 border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <span class="text-xs text-gray-500">max {{ $product->stock }}</span>
+                                </div>
+
+                                <button type="submit"
+                                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                    Add to Cart
+                                </button>
+                            </form>
+                        @else
+                            <button disabled
+                                    class="w-full bg-gray-300 text-gray-600 font-semibold py-4 px-6 rounded-xl cursor-not-allowed">
+                                Out of Stock
+                            </button>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl inline-flex items-center justify-center gap-2">
+                            Login to Add to Cart
+                        </a>
+                    @endauth
 
                     <!-- Additional Info -->
                     <div class="mt-6 pt-6 border-t border-gray-200">
