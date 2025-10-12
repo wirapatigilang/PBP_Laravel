@@ -64,6 +64,15 @@
         </tfoot>
       </table>
     </div>
+
+    {{-- <<< Tambahan: Tombol Checkout >>> --}}
+    <div class="mt-4 flex justify-end">
+      <a href="{{ route('checkout.show') }}"
+         class="inline-flex items-center px-5 py-2.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">
+        Checkout
+      </a>
+    </div>
+    {{-- <<< End Tambahan >>> --}}
   @endif
 </div>
 @endsection

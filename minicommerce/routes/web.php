@@ -1,34 +1,34 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+// Controllers
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 
-
-
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
+// ---------------- Public ----------------
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
+// ---------------- Dashboard (user) ----------------
+Route::get('/dashboard', [UserController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::get('/dashboard', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
+// ---------------- Profile ----------------
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-// Cart Routes
-use App\Http\Controllers\CartController;
 
+// ---------------- Cart ----------------
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
@@ -37,13 +37,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 });
 
+// ---------------- Checkout (auto-sukses) ----------------
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+    Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
+    Route::get('/orders/{order}/success', [CheckoutController::class, 'success'])->name('orders.success');
+});
 
-
-// Admin Routes
+// ---------------- Admin ----------------
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    // Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    // (opsional: kalau mau tetap ada /admin/dashboard)
+    // Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     // Categories
     Route::prefix('categories')->group(function () {
