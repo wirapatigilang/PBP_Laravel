@@ -43,6 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
     Route::get('/orders/{order}/success', [CheckoutController::class, 'success'])->name('orders.success');
 });
+// ---------------- Cart Add ----------------
+Route::middleware('auth')->group(function () {
+    Route::post('/cart/add/{product}', [\App\Http\Controllers\CartController::class, 'add'])
+        ->name('cart.add');
+});
+
 
 // ---------------- Admin ----------------
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
