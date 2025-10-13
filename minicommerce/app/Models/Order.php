@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    // kolom yang boleh di-mass assign
+    // Kolom yang dapat diisi mass-assignment
     protected $fillable = [
         'user_id',
         'total_amount',
@@ -21,20 +21,23 @@ class Order extends Model
         'service_fee',
     ];
 
-    // casting tipe data
+    // Casting tipe data otomatis
     protected $casts = [
-        'paid_at' => 'datetime',
-        'total_amount'  => 'decimal:0',
-        'shipping_cost' => 'decimal:0',
-        'service_fee'   => 'decimal:0',
+        'paid_at'        => 'datetime',
+        'total_amount'   => 'decimal:0',
+        'shipping_cost'  => 'decimal:0',
+        'service_fee'    => 'decimal:0',
     ];
 
-    /** RELATIONS **/
+    /** ===== RELATIONS ===== **/
+
+    // Relasi ke user (pembeli)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    // Relasi ke item pesanan
     public function items()
     {
         return $this->hasMany(OrderItem::class);

@@ -38,24 +38,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 });
 
-// ---------------- Checkout (auto-sukses) ----------------
+// ---------------- Checkout ----------------
 Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
     Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
     Route::get('/orders/{order}/success', [CheckoutController::class, 'success'])->name('orders.success');
 });
-// ---------------- Cart Add ----------------
-Route::middleware('auth')->group(function () {
-    Route::post('/cart/add/{product}', [\App\Http\Controllers\CartController::class, 'add'])
-        ->name('cart.add');
-});
-
 
 // ---------------- Admin ----------------
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    // (opsional: kalau mau tetap ada /admin/dashboard)
-    // Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     // Categories
     Route::prefix('categories')->group(function () {
