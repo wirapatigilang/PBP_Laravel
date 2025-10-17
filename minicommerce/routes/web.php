@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 // Controllers
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
@@ -13,14 +13,17 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\AdminCheckoutController;
 
+// ---------------- Redirect ke Dashboard (opsional) ----------------
+Route::get('/', fn () => redirect('/dashboard'));
+
 // ---------------- Public ----------------
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // ---------------- Dashboard (user) ----------------
-Route::get('/dashboard', [UserController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 // ---------------- Profile ----------------
 Route::middleware('auth')->group(function () {
@@ -38,24 +41,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 });
 
-// ---------------- Checkout (auto-sukses) ----------------
+// ---------------- Checkout ----------------
 Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
     Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
     Route::get('/orders/{order}/success', [CheckoutController::class, 'success'])->name('orders.success');
 });
-// ---------------- Cart Add ----------------
-Route::middleware('auth')->group(function () {
-    Route::post('/cart/add/{product}', [\App\Http\Controllers\CartController::class, 'add'])
-        ->name('cart.add');
-});
-
 
 // ---------------- Admin ----------------
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    // (opsional: kalau mau tetap ada /admin/dashboard)
-    // Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     // Categories
     Route::prefix('categories')->group(function () {
@@ -87,4 +82,5 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+// ---------------- Auth scaffolding (Breeze/Fortify/Jetstream) ----------------
+require __DIR__ . '/auth.php';

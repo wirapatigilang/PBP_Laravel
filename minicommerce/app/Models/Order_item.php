@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class Order_item extends Model
 {
     use HasFactory;
 
@@ -17,8 +17,6 @@ class OrderItem extends Model
         'qty',
         'subtotal',
         'store_name',
-        'status',
-        'address',
     ];
 
     protected $casts = [
