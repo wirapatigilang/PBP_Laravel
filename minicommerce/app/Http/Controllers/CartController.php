@@ -31,15 +31,29 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
+        // Cek apakah stock tersedia
+        if ($product->stock < $data['quantity']) {
+            return back()->with('error', "Stock tidak mencukupi. Stock tersedia: {$product->stock}");
+        }
+
         // Ambil baris jika sudah ada, kalau tidak buat instance baru
         $row = CartItem::firstOrNew([
             'user_id'    => $request->user()->id,
             'product_id' => $product->id,
         ]);
 
-        // Tambah jumlah
-        $row->quantity = (int) $row->quantity + (int) $data['quantity'];
+        // Hitung total quantity setelah ditambah
+        $newQuantity = (int) $row->quantity + (int) $data['quantity'];
 
+        // Cek apakah total quantity melebihi stock
+        if ($product->stock < $newQuantity) {
+            return back()->with('error', 
+                "Stock tidak mencukupi. Stock tersedia: {$product->stock}, sudah di cart: {$row->quantity}"
+            );
+        }
+
+        // Tambah jumlah
+        $row->quantity = $newQuantity;
 
         if (is_null($row->price_at_add)) {
             $row->price_at_add = $product->price;
@@ -47,7 +61,7 @@ class CartController extends Controller
 
         $row->save();
 
-        return back()->with('success', 'Added to cart.');
+        return back()->with('success', 'Produk berhasil ditambahkan ke keranjang.');
     }
 
     public function update(Request $request, CartItem $item)
@@ -58,11 +72,18 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1|max:999',
         ]);
 
+        // Cek stock availability
+        if ($item->product && $item->product->stock < $validated['quantity']) {
+            return back()->with('error', 
+                "Stock tidak mencukupi untuk {$item->product->name}. Stock tersedia: {$item->product->stock}"
+            );
+        }
+
         $item->update([
             'quantity' => (int) $validated['quantity'],
         ]);
 
-        return back()->with('success', 'Quantity updated.');
+        return back()->with('success', 'Quantity berhasil diupdate.');
     }
 
 

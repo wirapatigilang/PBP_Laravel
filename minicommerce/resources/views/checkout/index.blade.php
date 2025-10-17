@@ -4,11 +4,53 @@
 <div class="max-w-3xl mx-auto p-6">
   <h2 class="text-2xl font-bold mb-4">Checkout</h2>
 
-  {{-- Alamat Pembeli --}}
-  <div class="bg-white rounded shadow p-4 mb-4">
-    <div class="font-semibold">📍 {{ $user->name }} @if($user->phone) ({{ $user->phone }}) @endif</div>
-    <div class="text-gray-600 text-sm">{{ $user->address ?? 'Alamat belum diisi' }}</div>
-  </div>
+  {{-- Form Place Order --}}
+  <form action="{{ route('checkout.place') }}" method="POST" class="space-y-4">
+    @csrf
+    <input type="hidden" name="shipping_option" value="senja_shipping">
+
+    {{-- Alamat Pembeli --}}
+    <div class="bg-white rounded shadow p-4">
+      <div class="font-semibold mb-3">📍 Informasi Pengiriman</div>
+      
+      <div class="mb-3">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Penerima</label>
+        <input 
+          type="text" 
+          name="recipient_name" 
+          value="{{ $user->name }}" 
+          required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Masukkan nama penerima"
+        >
+      </div>
+
+      <div class="mb-3">
+        <label class="block text-sm font-medium text-gray-700 mb-1">No. Telepon</label>
+        <input 
+          type="text" 
+          name="recipient_phone" 
+          value="{{ $user->phone ?? '' }}" 
+          required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Contoh: 08123456789"
+        >
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap</label>
+        <textarea 
+          name="address" 
+          rows="3" 
+          required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Masukkan alamat lengkap (Jalan, RT/RW, Kelurahan, Kecamatan, Kota, Provinsi, Kode Pos)"
+        >{{ $user->address ?? '' }}</textarea>
+        @error('address')
+          <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+        @enderror
+      </div>
+    </div>
 
   {{-- Barang per "Toko" (satu grup default) --}}
   @foreach($grouped as $store => $list)
@@ -35,7 +77,7 @@
   @endforeach
 
   {{-- Opsi Pengiriman (Senja Shipping Rp0) --}}
-  <div class="bg-white rounded shadow p-4 mb-4 flex justify-between">
+  <div class="bg-white rounded shadow p-4 flex justify-between">
     <div>
       <div class="font-semibold">Opsi Pengiriman</div>
       <div class="text-sm text-gray-500">Reguler — Senja Shipping</div>
@@ -45,11 +87,6 @@
       <div class="font-semibold">Rp0</div>
     </div>
   </div>
-
-  {{-- Form Place Order --}}
-  <form action="{{ route('checkout.place') }}" method="POST" class="space-y-4">
-    @csrf
-    <input type="hidden" name="shipping_option" value="senja_shipping">
 
     {{-- Metode Pembayaran (formalitas) --}}
     <div class="bg-white rounded shadow p-4">
@@ -91,7 +128,7 @@
     </div>
 
     <div class="flex justify-end">
-      <button class="px-5 py-2.5 rounded bg-orange-600 hover:bg-orange-700 text-white font-semibold">
+      <button type="submit" class="px-5 py-2.5 rounded bg-orange-600 hover:bg-orange-700 text-white font-semibold">
         Buat Pesanan
       </button>
     </div>

@@ -104,13 +104,7 @@
                 <li class="active"><a href="{{ route('admin.dashboard') }}"> <i class="icon-home"></i>Home </a></li>
                 <li><a href="{{ route('admin.categories.index')}}"> <i class="icon-windows"></i>Category</a></li>
                 <li><a href="{{ route('admin.products.index')}}"> <i class="icon-windows"></i>Products</a></li>
-                <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
-                  <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Page</a></li>
-                  </ul>
-                </li>
+                <li><a href="{{ route('admin.orders.index')}}"> <i class="icon-windows"></i>Orders</a></li>
                 <li><a href="{{ route("products.index") }}"> <i class="icon-logout"></i>Main page </a></li>
       </nav>
       <!-- Sidebar Navigation end-->
@@ -126,6 +120,7 @@
         @yield('category')
         @yield('editcategory')
         @yield('content')
+        @yield('orders')
       
 
         </section>

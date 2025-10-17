@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\AdminCheckoutController;
 
 // ---------------- Public ----------------
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
@@ -74,6 +75,15 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
         Route::put('/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
         Route::delete('/{product}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+    });
+
+
+    // Orders
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [AdminCheckoutController::class, 'orders'])->name('admin.orders.index');
+        Route::get('/{order}', [AdminCheckoutController::class, 'orderDetail'])->name('admin.orders.detail');
+        Route::put('/{order}/update-status', [AdminCheckoutController::class, 'updateOrderStatus'])->name('admin.orders.updateStatus');
+        Route::put('/items/{item}/update-status', [AdminCheckoutController::class, 'updateItemStatus'])->name('admin.orders.updateItemStatus');
     });
 });
 

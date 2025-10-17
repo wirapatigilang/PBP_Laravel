@@ -75,7 +75,7 @@
                             </span>
                         @endif
                     </a>
-                @endauth>
+                @endauth
 
                 <!-- Settings Dropdown -->
                 @auth
