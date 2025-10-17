@@ -14,7 +14,15 @@ use App\Models\Product;
 class CheckoutController extends Controller
 {
     /**
+<<<<<<< HEAD
+<<<<<<< HEAD
      * GET /checkout — tampilkan halaman checkout
+=======
+     * GET /checkout — tampilkan halaman checkout (sinkron dengan index.blade.php kamu)
+>>>>>>> 02edfab (WIP: local changes before syncing with upstream)
+=======
+     * GET /checkout — tampilkan halaman checkout
+>>>>>>> 9857363 (integrasi dasbor & autentikasi)
      */
     public function show()
     {
@@ -28,7 +36,15 @@ class CheckoutController extends Controller
         $serviceFee    = 3000;
         $grandTotal    = $itemsSubtotal + $shippingTotal + $serviceFee;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
         // Group per toko agar cocok dengan Blade ($grouped)
+=======
+        // Tambahan: group per toko agar cocok dengan Blade ($grouped)
+>>>>>>> 02edfab (WIP: local changes before syncing with upstream)
+=======
+        // Group per toko agar cocok dengan Blade ($grouped)
+>>>>>>> 9857363 (integrasi dasbor & autentikasi)
         $grouped = $items->groupBy(fn ($i) => $i->store_name ?? 'Toko');
 
         return view('checkout.index', [
@@ -73,6 +89,13 @@ class CheckoutController extends Controller
 
         try {
             $order = DB::transaction(function () use ($items, $shippingTotal, $serviceFee, $grandTotal, $request) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 02edfab (WIP: local changes before syncing with upstream)
+=======
+>>>>>>> 9857363 (integrasi dasbor & autentikasi)
                 // Lock produk agar aman
                 $productIds = $items->pluck('product_id')->all();
                 $products = Product::whereIn('id', $productIds)
@@ -105,7 +128,15 @@ class CheckoutController extends Controller
                     $p = $products->get($it->product_id);
                     $price = $it->price_at_add ?? ($p->price ?? 0);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
                     Order_item::create([
+=======
+                    OrderItem::create([
+>>>>>>> 02edfab (WIP: local changes before syncing with upstream)
+=======
+                    Order_item::create([
+>>>>>>> 9857363 (integrasi dasbor & autentikasi)
                         'order_id'   => $order->id,
                         'product_id' => $p->id,
                         'name'       => $p->name ?? 'Produk',
@@ -114,7 +145,15 @@ class CheckoutController extends Controller
                         'subtotal'   => $price * (int) $it->quantity,
                         // gunakan store_name dari cart kalau ada, fallback "Toko"
                         'store_name' => $it->store_name ?? 'Toko',
+<<<<<<< HEAD
+<<<<<<< HEAD
                         // kolom NOT NULL dari migrasi (sesuaikan jika berbeda)
+=======
+                        // kolom NOT NULL dari migrasi
+>>>>>>> 02edfab (WIP: local changes before syncing with upstream)
+=======
+                        // kolom NOT NULL dari migrasi (sesuaikan jika berbeda)
+>>>>>>> 9857363 (integrasi dasbor & autentikasi)
                         'status'     => 'paid',
                         'address'    => auth()->user()->address ?? '',
                     ]);

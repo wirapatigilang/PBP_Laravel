@@ -16,6 +16,9 @@ use App\Http\Controllers\Admin\AdminCheckoutController;
 // ---------------- Redirect ke Dashboard (opsional) ----------------
 Route::get('/', fn () => redirect('/dashboard'));
 
+// ---------------- Redirect ke Dashboard (opsional) ----------------
+Route::get('/', fn () => redirect('/dashboard'));
+
 // ---------------- Public ----------------
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
