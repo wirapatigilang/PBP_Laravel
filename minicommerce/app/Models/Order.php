@@ -41,10 +41,13 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(Order_item::class);
+<<<<<<< HEAD
     }
 
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+=======
+>>>>>>> 9857363 (integrasi dasbor & autentikasi)
     }
 }
