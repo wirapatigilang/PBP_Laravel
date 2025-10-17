@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 use App\Models\Order;
-use App\Models\Order_item;
+use App\Models\Order_item; // sesuai penamaan modelmu
 use App\Models\CartItem;
 use App\Models\Product;
 
 class CheckoutController extends Controller
 {
     /**
-     * GET /checkout — tampilkan halaman checkout (sinkron dengan index.blade.php kamu)
+     * GET /checkout — tampilkan halaman checkout
      */
     public function show()
     {
@@ -28,7 +28,7 @@ class CheckoutController extends Controller
         $serviceFee    = 3000;
         $grandTotal    = $itemsSubtotal + $shippingTotal + $serviceFee;
 
-        // Tambahan: group per toko agar cocok dengan Blade ($grouped)
+        // Group per toko agar cocok dengan Blade ($grouped)
         $grouped = $items->groupBy(fn ($i) => $i->store_name ?? 'Toko');
 
         return view('checkout.index', [
@@ -73,7 +73,6 @@ class CheckoutController extends Controller
 
         try {
             $order = DB::transaction(function () use ($items, $shippingTotal, $serviceFee, $grandTotal, $request) {
-
                 // Lock produk agar aman
                 $productIds = $items->pluck('product_id')->all();
                 $products = Product::whereIn('id', $productIds)
@@ -106,7 +105,7 @@ class CheckoutController extends Controller
                     $p = $products->get($it->product_id);
                     $price = $it->price_at_add ?? ($p->price ?? 0);
 
-                    OrderItem::create([
+                    Order_item::create([
                         'order_id'   => $order->id,
                         'product_id' => $p->id,
                         'name'       => $p->name ?? 'Produk',
@@ -115,7 +114,7 @@ class CheckoutController extends Controller
                         'subtotal'   => $price * (int) $it->quantity,
                         // gunakan store_name dari cart kalau ada, fallback "Toko"
                         'store_name' => $it->store_name ?? 'Toko',
-                        // kolom NOT NULL dari migrasi
+                        // kolom NOT NULL dari migrasi (sesuaikan jika berbeda)
                         'status'     => 'paid',
                         'address'    => auth()->user()->address ?? '',
                     ]);

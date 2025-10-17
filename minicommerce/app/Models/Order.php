@@ -40,7 +40,7 @@ class Order extends Model
     // Relasi ke item pesanan
     public function items()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(Order_item::class);
     }
 
     public function orderItems()

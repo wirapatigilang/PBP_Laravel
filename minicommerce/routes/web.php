@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 // Controllers
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
@@ -13,14 +13,17 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\AdminCheckoutController;
 
+// ---------------- Redirect ke Dashboard (opsional) ----------------
+Route::get('/', fn () => redirect('/dashboard'));
+
 // ---------------- Public ----------------
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // ---------------- Dashboard (user) ----------------
-Route::get('/dashboard', [UserController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 // ---------------- Profile ----------------
 Route::middleware('auth')->group(function () {
@@ -79,4 +82,5 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+// ---------------- Auth scaffolding (Breeze/Fortify/Jetstream) ----------------
+require __DIR__ . '/auth.php';
