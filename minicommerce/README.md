@@ -1,61 +1,177 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MiniCommerce - Laravel E-Commerce Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+MiniCommerce adalah aplikasi e-commerce sederhana yang dibangun dengan Laravel, dilengkapi dengan fitur checkout, manajemen produk, dan stock management.
 
-## About Laravel
+## 🚀 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- ✅ **Autentikasi Multi-Role** (Admin & User)
+- 🛍️ **Katalog Produk** dengan kategori
+- 🛒 **Shopping Cart** dengan manajemen item
+- 💳 **Checkout System** dengan form alamat pengiriman
+- 📦 **Stock Management** otomatis saat checkout
+- 👨‍💼 **Admin Dashboard** untuk kelola produk & order
+- 🎨 **Responsive Design** dengan TailwindCSS
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Persyaratan Sistem
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP >= 8.1
+- Composer
+- MySQL >= 5.7
+- Node.js & NPM
 
-## Learning Laravel
+## ⚙️ Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Clone Repository
+```bash
+git clone https://github.com/wirapatigilang/PBP_Laravel.git
+cd minicommerce
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2. Install Dependencies
+```bash
+composer install
+npm install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Setup Environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Laravel Sponsors
+### 4. Konfigurasi Database
+Edit file `.env` dan sesuaikan konfigurasi database:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=minicommerce
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 5. Jalankan Migration & Seeder
+```bash
+php artisan migrate:fresh --seed
+```
 
-### Premium Partners
+**Seeder akan otomatis membuat:**
+- ✅ 2 User (Admin & User biasa)
+- ✅ 6 Kategori produk
+- ✅ 4 Produk sample dengan gambar
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 6. Build Assets
+```bash
+npm run dev
+```
 
-## Contributing
+### 7. Jalankan Aplikasi
+```bash
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Akses aplikasi di: `http://localhost:8000`
 
-## Code of Conduct
+## 👤 Default Login Credentials
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Admin Account
+- **Email:** admin@gmail.com
+- **Password:** admin123
 
-## Security Vulnerabilities
+### User Account
+- **Email:** wirapatigilang@gmail.com
+- **Password:** password123
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 📦 Data Seeder
 
-## License
+Seeder sudah mencakup:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Users
+- Admin dengan akses penuh
+- User biasa untuk testing
+
+### Categories
+- Celana
+- T-Shirt
+- Kemeja
+- Accesioris
+- Orang Hilang
+- Outerwear
+
+### Products
+1. **T-Shirt Oversized Putih** - Rp109.000 (Stock: 10)
+2. **Regular Fit Textured Short Sleeve Shirt** - Rp325.000 (Stock: 10)
+3. **Slim Fit Basic Long Pants** - Rp365.415 (Stock: 15)
+4. **Knitted Bomber Jacket** - Rp499.999 (Stock: 8)
+
+## 🛠️ Cara Reset Database
+
+Jika ingin reset database ke kondisi awal (dengan data seeder):
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+⚠️ **Peringatan:** Perintah ini akan menghapus semua data yang ada!
+
+## 📁 Struktur Proyek
+
+```
+minicommerce/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── CheckoutController.php
+│   │   ├── CartController.php
+│   │   ├── ProductController.php
+│   │   └── Admin/
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Product.php
+│   │   ├── Category.php
+│   │   ├── Order.php
+│   │   ├── OrderItem.php
+│   │   └── CartItem.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+│       ├── DatabaseSeeder.php
+│       ├── UserSeeder.php
+│       ├── CategorySeeder.php
+│       └── ProductSeeder.php
+├── resources/
+│   └── views/
+│       ├── products/
+│       ├── checkout/
+│       └── cart/
+└── routes/
+    └── web.php
+```
+
+## 🎯 Fitur Checkout
+
+Form checkout mencakup:
+- ✅ Input Nama Penerima
+- ✅ Input No. Telepon
+- ✅ Input Alamat Lengkap
+- ✅ Pilihan Metode Pembayaran (Transfer Bank, QRIS, COD)
+- ✅ Auto-fill dari data user (dapat diedit)
+- ✅ Validasi form lengkap
+
+## 🔐 Security Features
+
+- CSRF Protection
+- Password Hashing (bcrypt)
+- Database Transaction untuk stock management
+- Row Locking untuk mencegah race condition
+
+## 🤝 Contributing
+
+Kontribusi selalu diterima! Silakan buat pull request atau laporkan issue.
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+**Developed with ❤️ by Gilang Wirapati**
