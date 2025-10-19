@@ -1,5 +1,7 @@
 # MiniCommerce - Laravel E-Commerce Application
 
+Link Drive : https://drive.google.com/drive/folders/1-ul8cDbVuHhOEz5kkHB3Pi2LgIYHQm24
+
 MiniCommerce adalah aplikasi e-commerce sederhana yang dibangun dengan Laravel, dilengkapi dengan fitur checkout, manajemen produk, dan stock management.
 
 ## 🚀 Fitur Utama
