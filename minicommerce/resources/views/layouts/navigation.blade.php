@@ -106,7 +106,12 @@
                         </x-slot>
                     </x-dropdown>
                 @else
-                    <a href="{{ route('login') }}" class="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50">Login</a>
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-gray-900 font-medium">
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-lg text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                        Register
+                    </a>
                 @endauth
             </div>
 
@@ -124,11 +129,15 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden border-t border-gray-200">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
+        @auth
+            <div class="pt-2 pb-3 space-y-1">
+                @if(Auth::user()->role === 'admin')
+                    <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                @endif
+            </div>
+        @endauth
 
         <!-- Mobile Search -->
         <div class="px-4 py-3 border-t border-gray-200">
@@ -187,6 +196,15 @@
                         </x-responsive-nav-link>
                     </form>
                 </div>
+            </div>
+        @else
+            <div class="pt-4 pb-3 border-t border-gray-200 px-4 space-y-2">
+                <a href="{{ route('login') }}" class="block w-full text-center px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                    Login
+                </a>
+                <a href="{{ route('register') }}" class="block w-full text-center px-4 py-2 bg-blue-600 rounded-lg text-sm text-white hover:bg-blue-700">
+                    Register
+                </a>
             </div>
         @endauth
     </div>

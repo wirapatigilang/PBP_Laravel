@@ -14,15 +14,6 @@
 <div class="max-w-3xl mx-auto p-6">
   <h2 class="text-2xl font-bold mb-4">Checkout</h2>
 
-  {{-- Alamat Pembeli --}}
-  <div class="bg-white rounded shadow p-4 mb-4">
-    <div class="font-semibold">
-      📍 {{ $user->name }}
-      @if(!empty($user->phone)) ({{ $user->phone }}) @endif
-    </div>
-    <div class="text-gray-600 text-sm">{{ $user->address ?? 'Alamat belum diisi' }}</div>
-  </div>
-
   {{-- Barang per "Toko" (satu grup default) --}}
   @forelse($grouped as $store => $list)
     <div class="bg-white rounded shadow mb-4">
@@ -93,8 +84,69 @@
     {{-- WAJIB: opsi pengiriman selalu terkirim --}}
     <input type="hidden" name="shipping_option" value="senja_shipping">
 
-    {{-- FALLBACK: default payment method --}}
-    <input type="hidden" name="payment_method" value="transfer_bank">
+    {{-- Form Informasi Pengiriman --}}
+    <div class="bg-white rounded shadow p-4">
+      <div class="font-semibold mb-4">Informasi Pengiriman</div>
+      
+      {{-- Nama Penerima --}}
+      <div class="mb-3">
+        <label for="recipient_name" class="block text-sm font-medium text-gray-700 mb-1">
+          Nama Penerima <span class="text-red-500">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="recipient_name"
+          name="recipient_name" 
+          value="{{ old('recipient_name', $user->name) }}"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Masukkan nama penerima"
+          required
+        >
+        @error('recipient_name')
+          <div class="text-sm text-red-600 mt-1">{{ $message }}</div>
+        @enderror
+      </div>
+
+      {{-- No. Telepon --}}
+      <div class="mb-3">
+        <label for="recipient_phone" class="block text-sm font-medium text-gray-700 mb-1">
+          No. Telepon <span class="text-red-500">*</span>
+        </label>
+        <input 
+          type="tel" 
+          id="recipient_phone"
+          name="recipient_phone" 
+          value="{{ old('recipient_phone', $user->phone) }}"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Contoh: 081234567890"
+          required
+        >
+        @error('recipient_phone')
+          <div class="text-sm text-red-600 mt-1">{{ $message }}</div>
+        @enderror
+      </div>
+
+      {{-- Alamat Lengkap --}}
+      <div class="mb-3">
+        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">
+          Alamat Lengkap <span class="text-red-500">*</span>
+        </label>
+        <textarea 
+          id="address"
+          name="address" 
+          rows="3"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Masukkan alamat lengkap (jalan, no. rumah, RT/RW, kelurahan, kecamatan, kota, kode pos)"
+          required
+        >{{ old('address', $user->address) }}</textarea>
+        @error('address')
+          <div class="text-sm text-red-600 mt-1">{{ $message }}</div>
+        @enderror
+        <div class="text-xs text-gray-500 mt-1">
+          Pastikan alamat lengkap dan jelas untuk mempermudah pengiriman
+        </div>
+      </div>
+    </div>
 
     {{-- Metode Pembayaran --}}
     <div class="bg-white rounded shadow p-4">

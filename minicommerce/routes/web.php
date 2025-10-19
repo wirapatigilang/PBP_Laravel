@@ -13,11 +13,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\AdminCheckoutController;
 
-// ---------------- Redirect ke Dashboard (opsional) ----------------
-Route::get('/', fn () => redirect('/dashboard'));
-
-// ---------------- Redirect ke Dashboard (opsional) ----------------
-Route::get('/', fn () => redirect('/dashboard'));
+// ---------------- Home / Root URL ----------------
+Route::get('/', [ProductController::class, 'index'])->name('home');
 
 // ---------------- Public ----------------
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
