@@ -44,6 +44,10 @@ Route::middleware('auth')->group(function () {
 // ---------------- Checkout ----------------
 Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+
+    // ✅ Tambahan: route POST menuju method place() dengan alias checkout.store
+    Route::post('/checkout', [CheckoutController::class, 'place'])->name('checkout.store');
+
     Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
     Route::get('/orders/{order}/success', [CheckoutController::class, 'success'])->name('orders.success');
 });
@@ -71,7 +75,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::put('/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
         Route::delete('/{product}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
     });
-
 
     // Orders
     Route::prefix('orders')->group(function () {

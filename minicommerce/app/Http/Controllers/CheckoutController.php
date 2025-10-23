@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule; // tambahkan
 use Carbon\Carbon;
 
 use App\Models\Order;
@@ -47,14 +48,34 @@ class CheckoutController extends Controller
      */
     public function place(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'payment_method'  => 'required|in:transfer_bank,qris,cod',
-            'shipping_option' => 'required|in:senja_shipping',
-            'address'         => 'required|string|min:10',
-            'recipient_name'  => 'required|string|max:255',
-            'recipient_phone' => 'required|string|max:20',
-        ]);
+        //  Validasi input (12 digit, diawali 0, dan TIDAK boleh semua nol)
+        $request->validate(
+            [
+                'payment_method'  => 'required|in:transfer_bank,qris,cod',
+                'shipping_option' => 'required|in:senja_shipping',
+                'address'         => ['required','string','min:10','max:255'],
+                'recipient_name'  => ['required','string','max:255'],
+                'recipient_phone' => [
+                    'required',
+                    'regex:/^(?!0{12}$)0\d{11}$/',  
+                    Rule::notIn(['000000000000']),  
+                ],
+            ],
+            [
+                'payment_method.required'   => 'Metode pembayaran wajib diisi.',
+                'payment_method.in'         => 'Metode pembayaran tidak valid.',
+                'shipping_option.required'  => 'Opsi pengiriman wajib diisi.',
+                'shipping_option.in'        => 'Opsi pengiriman tidak valid.',
+                'address.required'          => 'Alamat wajib diisi.',
+                'address.min'               => 'Alamat minimal 10 karakter.',
+                'address.max'               => 'Alamat maksimal 255 karakter.',
+                'recipient_name.required'   => 'Nama penerima wajib diisi.',
+                'recipient_name.max'        => 'Nama penerima terlalu panjang.',
+                'recipient_phone.required'  => 'Nomor penerima wajib diisi.',
+                'recipient_phone.regex'     => 'Nomor penerima harus 12 digit, hanya angka, diawali 0, dan tidak boleh semua nol.',
+                'recipient_phone.not_in'    => 'Nomor penerima tidak boleh 000000000000.',
+            ]
+        );
 
         // Ambil item keranjang
         $items = $this->getItems();

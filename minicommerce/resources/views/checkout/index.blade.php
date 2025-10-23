@@ -112,18 +112,32 @@
         <label for="recipient_phone" class="block text-sm font-medium text-gray-700 mb-1">
           No. Telepon <span class="text-red-500">*</span>
         </label>
-        <input 
-          type="tel" 
+        <input
           id="recipient_phone"
-          name="recipient_phone" 
-          value="{{ old('recipient_phone', $user->phone) }}"
-          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          name="recipient_phone"
+          type="text"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('recipient_phone') is-invalid @enderror"
           placeholder="Contoh: 081234567890"
+          inputmode="numeric"
+          pattern="(?!0{12})0\d{11}"   {{-- tolak 12 nol di level HTML --}}
+          minlength="12" maxlength="12"
+          value="{{ old('recipient_phone', $user->phone) }}"
+          oninput="
+            this.value = this.value.replace(/\D/g,'').slice(0,12);
+            if (this.value === '000000000000') {
+              this.setCustomValidity('Nomor telepon tidak boleh 000000000000.');
+            } else {
+              this.setCustomValidity('');
+            }
+          "
           required
-        >
+        />
         @error('recipient_phone')
           <div class="text-sm text-red-600 mt-1">{{ $message }}</div>
         @enderror
+        <div class="text-xs text-gray-500 mt-1">
+          Wajib 12 digit, hanya angka, diawali 0, dan tidak boleh semua nol (misal: 08XXXXXXXXXX).
+        </div>
       </div>
 
       {{-- Alamat Lengkap --}}
