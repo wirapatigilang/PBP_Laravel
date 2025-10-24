@@ -2,11 +2,27 @@
 
 @section('content')
 
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
 <div class="bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen">
     <!-- Header Section -->
     <div class="bg-white shadow-sm border-b">
         <div class="max-w-7xl mx-auto py-12 px-4">
             <div class="text-center">
+
+                {{-- Ucapan selamat datang (untuk user login & belum login) --}}
+                <div class="text-center mb-4">
+                    <h1 class="text-xl font-semibold text-gray-800">
+                        @auth
+                            Selamat datang dan selamat berbelanja, {{ Auth::user()->name }}!
+                        @else
+                            Selamat datang di MiniCommerce! Silakan login untuk berbelanja 😊
+                        @endauth
+                    </h1>
+                </div>
+
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
                     Discover Our Products
                 </h1>
